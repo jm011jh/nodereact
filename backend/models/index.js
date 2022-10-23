@@ -1,5 +1,5 @@
 const mongoose = require("mongoose")
-const dbUri = "mongodb+srv://jm011jh:Tjdwoals92@jm011jh.2jkc7bg.mongodb.net/?retryWrites=true&w=majority";
+const dbUri = "mongodb+srv://jm011jh:Tjdwoals92@jm011jh.2jkc7bg.mongodb.net/study?retryWrites=true&w=majority";
 const connect = () => {
     mongoose.connect(dbUri, (err) => {
             if (err) console.log("mongo db connect failed")

@@ -8,6 +8,6 @@ var ItemSchema = new mongoose.Schema({
     item_time :   { type: Number, required: true },
     item_teacher_id :{ type: Number, required: true },
     item_count_student : {type: Number},
-})
+},{collection: 'class'})
 
 module.exports = mongoose.model('class', ItemSchema)

@@ -5,6 +5,6 @@ var TeacherSchema = new mongoose.Schema({
     teach_name : { type: String, required: true },
     teach_school : {type: Number, required: true },
     teach_history : {type: Array}
-})
+},{collection: 'teacher'})
 
 module.exports = mongoose.model("Teacher",TeacherSchema)
