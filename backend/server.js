@@ -6,6 +6,8 @@ const path = require("path");
 const bcrypt = require("bcrypt");
 const bodyParser = require("body-parser")
 const mongoose = require("mongoose");
+// const AutoIncrementFactory = require("mongoose-sequence")
+// const AutoIncrement = AutoIncrementFactory(mongoose)
 const { MongoClient } = require("mongodb");
 
 const app = express();
@@ -25,6 +27,7 @@ const { response } = require("express");
 const Teachers = require("./models/teacher")
 const Classes = require("./models/class")
 const Types = require("./models/type")
+const Count = require("./models/count")
 const connect = require("./models")
 connect()
 
@@ -32,16 +35,29 @@ async function run() {
     try {
         app.listen(port, ()=> {console.log( port + "connected")})
         app.get('/', (req, res) => { res.send("nodemon server.js on port" + port + "is now running") })
-        app.get("/api/teacherget", (req, res) => {
-            Teachers.find((error, result)=>{
+        app.get("/api/getcount", (req, res) => {
+            Count.find((error, result) => {
+                if(error) console.log(error)
+                res.send(result)
+            })
+        })
+        app.get("/api/getteacher", (req, res) => {
+            Teachers.find((error, result) => {
+                if(error) console.log(error)
                 res.send(result)
             })
         })
         app.post("/api/teacherpost", async (req, res) => {
             var new_teacher = new Teachers(req.body)
             new_teacher.save((err) => {
-                if (err) return res.status(500).json({message: "save failed"});
-                else return response.status(200).json({message: "save success", data: new_item})
+                if(err) console.log(err)
+            })
+            Count.findOne({count_name : "teacher"},(err, res) => {
+                if (err) console.log(err)
+                let increaseOne = res.count_num + 1
+                Count.updateOne({count_name : "teacher"}, {count_num : increaseOne}, (error) => {
+                    if (error) console.log(error)
+                })
             })
         })
         app.post("/api/itempost", async (req, res) => {

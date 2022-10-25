@@ -19,6 +19,7 @@
     "method-override": "^3.0.0",
     "mongodb": "^4.10.0",
     "mongodb-legacy": "^4.0.0",
-    "mongoose": "^6.6.5"
+    "mongoose": "^6.6.5",
+    "mongoose-sequence": "^5.3.1"
   }
 }
