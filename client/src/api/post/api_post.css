@@ -1,0 +1,8 @@
+.post--dataHead{display: flex;align-items: center;}
+
+.post--dataItem{display: flex;align-items: center;line-height: 1;}
+.post--dataItem:not(:last-child){margin-bottom: 12px;padding-bottom: 20px;border-bottom: 1px solid #ccc;}
+.post--dataItem-text01{font-size: 20px;font-weight: 600;width: 120px;text-align: center;}
+.post--dataItem-text02{font-size: 14px;width: 140px;text-align-last: center;}
+.post--dataItem-text03{font-size: 13px;color: #aaa;}
+.post--dataItem-line{display: block;width:1px;height: 10px;margin: 0 8px;background-color: #aaa;}

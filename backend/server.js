@@ -28,6 +28,7 @@ const Teachers = require("./models/teacher")
 const Classes = require("./models/class")
 const Types = require("./models/type")
 const Count = require("./models/count")
+const Schools = require("./models/school")
 const connect = require("./models")
 connect()
 
@@ -35,8 +36,15 @@ async function run() {
     try {
         app.listen(port, ()=> {console.log( port + "connected")})
         app.get('/', (req, res) => { res.send("nodemon server.js on port" + port + "is now running") })
+        //#region api get
         app.get("/api/getcount", (req, res) => {
             Count.find((error, result) => {
+                if(error) console.log(error)
+                res.send(result)
+            })
+        })
+        app.get("/api/getschool", (req, res) => {
+            Schools.find((error, result) => {
                 if(error) console.log(error)
                 res.send(result)
             })
@@ -47,6 +55,20 @@ async function run() {
                 res.send(result)
             })
         })
+        app.get("/api/getclass", (req, res) => {
+            Classes.find((error, result) => {
+                if(error) console.log(error)
+                res.send(result)
+            })
+        })
+        app.get("/api/gettype", (req, res) => {
+            Types.find((error, result) => {
+                if(error) console.log(error)
+                res.send(result)
+            })
+        })
+        //#endregion api get
+        //#region api post
         app.post("/api/teacherpost", async (req, res) => {
             var new_teacher = new Teachers(req.body)
             new_teacher.save((err) => {
@@ -63,17 +85,46 @@ async function run() {
         app.post("/api/itempost", async (req, res) => {
             var new_type = new Types(req.body)
             new_type.save((err) => {
-                if (err) return res.status(500).json({message: "teacher save failed"});
-                else return response.status(200).json({message: "teacher save success", data: new_teacher})
+                if (err) return res.status(500).json({message: "type save failed"});
+                else return response.status(200).json({message: "type save success", data: new_type})
+            })
+            Count.findOne({count_name : "item"},(err, res) => {
+                if (err) console.log(err)
+                let increaseOne = res.count_num + 1
+                Count.updateOne({count_name : "item"}, {count_num : increaseOne}, (error) => {
+                    if (error) console.log(error)
+                })
             })
         })
         app.post("/api/classpost", async (req, res) => {
             var new_class = new Classes(req.body)
             new_class.save((err) => {
-                if (err) return res.status(500).json({message: "teacher save failed"});
-                else return response.status(200).json({message: "teacher save success", data: new_teacher})
+                if (err) return res.status(500).json({message: "class save failed"});
+                else return response.status(200).json({message: "class save success", data: new_class})
+            })
+            Count.findOne({count_name : "class"},(err, res) => {
+                if (err) console.log(err)
+                let increaseOne = res.count_num + 1
+                Count.updateOne({count_name : "class"}, {count_num : increaseOne}, (error) => {
+                    if (error) console.log(error)
+                })
             })
         })
+        app.post("/api/schoolpost", async (req, res) => {
+            var new_schools = new Schools(req.body)
+            new_schools.save((err) => {
+                if (err) return res.status(500).json({message: "school save failed"});
+                else return response.status(200).json({message: "school save success", data: new_schools})
+            })
+            Count.findOne({count_name : "school"},(err, res) => {
+                if (err) console.log(err)
+                let increaseOne = res.count_num + 1
+                Count.updateOne({count_name : "school"}, {count_num : increaseOne}, (error) => {
+                    if (error) console.log(error)
+                })
+            })
+        })
+        //#endregion api post
     } finally {
         await console.log("done")
     }
