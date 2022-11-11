@@ -10,7 +10,7 @@ export default function Admin(){
     }
     return(
         <>
-            <div>관리자 페이지입니다</div>
+            <div className="adm--h1">관리자 페이지입니다</div>
             <div className="adm--menubar">
                 <div className="adm--menuItem" onClick={(e)=>{navigate("/adm/post/teacher");addClassOn(e.target)}}>강사</div>
                 <div className="adm--menuItem" onClick={(e)=>{navigate("/adm/post/class");addClassOn(e.target)}}>클래스</div>

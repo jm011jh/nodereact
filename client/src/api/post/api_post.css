@@ -1,5 +1,6 @@
-.post--wrap{width: 100%;max-width: 1000px;margin:0 auto;}
+.post--wrap{width: 100%;max-width: 1000px;margin:100px auto 0;}
 .post--form{width: 100%;max-width: 480px;margin:0 auto;}
+.post--form-title{font-size: 24px;text-align: center;margin: 1em 0;}
 .post--form-label{font-size: 13px;color: #666;line-height: 1;margin-bottom: 0.66em;}
 .post--submit-btn{cursor: pointer;width: 120px;margin:24px auto 0;text-align: center;height: 48px;display: flex;align-items: center;justify-content: center;border-radius: 6px;transition-duration: 0.1s;background-color: rgb(55,55,88);color: #fff;}
 .post--submit-btn:focus,
@@ -9,9 +10,16 @@
 
 .post--dataList{margin-top: 40px;}
 .post--dataTitle{font-size: 18px;text-align:center;margin-bottom: 20px;}
-.post--dataItem{display: flex;align-items: center;line-height: 1;padding: 10px 0;}
+.post--dataItem{padding:  10px 0;}
 .post--dataItem:not(:last-child){border-bottom: 1px solid #ccc;}
+.post--dataItem-contents{display: flex;align-items: center;line-height: 1;padding: 10px 0;justify-content: space-between;width: 100%;}
+.post--dataItem-text{display: flex;}
 .post--dataItem-text01{font-size: 16px;font-weight: 500;width: 120px;text-align: center;}
 .post--dataItem-text02{font-size: 14px;width: 140px;text-align-last: center;font-weight: 500;}
 .post--dataItem-text03{font-size: 13px;color: #666;}
 .post--dataItem-line{display: block;width:1px;height: 12px;margin: 0 8px;background-color: #aaa;}
+.post--dataItem-fix-btn{width: 40px;height: 40px;display: flex;justify-content: center;align-items: center;border-radius: 4px;border: 1px solid rgba(0,0,0,0.2);cursor: pointer;margin-right: 10px;}
+.post--dataItem-fix-btn span:first-child{display: block;}
+.post--dataItem-fix-btn span:last-child{display: none;}
+
+.post--dataItem-fixInput{border-top: 1px solid #ddd;}

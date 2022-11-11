@@ -77,7 +77,7 @@ function PostTeacher(){
     return(
         <div className="post--wrap">
             <div className="post--form">
-                <div>강사를 등록하세요.</div>
+                <div className="post--form-title">강사를 등록하세요.</div>
                 <Form onSubmit={saveHandler}>
                 <Form.Group className="mb-3">
                     <div className="post--form-label">이름</div>
@@ -93,7 +93,7 @@ function PostTeacher(){
                 </Form.Group>
                 <div className="post--form-label">소속 학교</div>
                 <Form.Select area-label="default select example" onChange={schoolHandler}>
-                    <option>Open this select menu</option>
+                    <option>학교를 선택해주세요</option>
                     {
                         schoolList.map(function( data, i ){
                             return(<option key={i} value={data.school_id}>{data.school_name}</option>)
@@ -126,15 +126,31 @@ function PostTeacher(){
 function PostDataCnt(props){
     const teacherList = props.teacherList
     const schoolList = props.schoolList
+    const fixThisItem = (event) => {
+        const thisBtn = event.currentTarget
+        if(thisBtn.classList.contains("open")){
+            thisBtn.classList.remove("open")
+        } else {
+            thisBtn.classList.add("open")
+        }
+    }
     return(
         teacherList.map(function(data, i){
             return(
                 <div key={i} className="post--dataItem">
-                    <div className="post--dataItem-text01">{data.teach_name}</div>
+                                        <div className="post--dataItem-contents">
+                        <div className="post--dataItem-text">
+                        <div className="post--dataItem-text01">{data.teach_name}</div>
                     <span className="post--dataItem-line"></span>
                     <div className="post--dataItem-text02">{schoolList[data.teach_school].school_name}</div>
                     <span className="post--dataItem-line"></span>
                     <div className="post--dataItem-text03">{data.teach_history}</div>
+                        </div>
+                        <div className="post--dataItem-fix-btn" onClick={fixThisItem}>
+                            <span className="material-symbols-outlined">edit</span>
+                            <span className="material-symbols-outlined">close</span>
+                        </div>
+                    </div>
                 </div>
             )
         })
