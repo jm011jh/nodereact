@@ -12,7 +12,7 @@ export default function PostSchool(){
     useEffect(()=>{
         axios.get("/api/getcount")
         .then((res) => {
-            var countFilter = res.data.filter(x => x.count_name == "school")
+            var countFilter = res.data.filter(x => x.count_name === "school")
             setSchoolCount(countFilter[0].count_num)
         })
         axios.get("/api/getschool")
@@ -112,9 +112,9 @@ function PostDataCnt(props){
 function PostDataCntFixForm(props){
     let [fixedSchoolName, setFixedSchoolName] = useState("")
     let fixHandler = (e) => {
-        let body = {
-            school_name : fixedSchoolName,
-        }
+        // let body = {
+        //     school_name : fixedSchoolName,
+        // }
         // axios.post("/api/schoolpost",body).then((res) => console.log(res));
     }
     return(

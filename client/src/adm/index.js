@@ -1,5 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom"
 import './style.css'
+
+
 export default function Admin(){
     let navigate = useNavigate()
     function addClassOn(target){

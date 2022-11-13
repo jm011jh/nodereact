@@ -9,7 +9,12 @@ import PostSchool from './api/post/PostSchool';
 import { Routes, Route, Link } from 'react-router-dom'
 import './static/pretendard.css'
 import './public.css'
+import useStore from './store/index'
+import { useEffect } from 'react';
+
+
 function App() {
+
   return (
     <div className="App">
       <Routes>

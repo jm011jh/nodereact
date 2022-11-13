@@ -3,8 +3,10 @@ import { Form } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './api_post.css'
 import { useState, useEffect } from "react"
+import useStore from '../../store/index'
 
 function PostTeacher(){
+    const { getTeachers, getSchools } = useStore(state => state)
     let [ teachName, setTeachName ] = useState("")
     let [ teachSchool, setTeachSchool ] = useState("")
     let [ teachHistory, setTeachHistory ] = useState("")
@@ -16,29 +18,18 @@ function PostTeacher(){
     useEffect(() => {
         axios.get("/api/getcount")
         .then((res) => {
-            var countFilter = res.data.filter(x => x.count_name == "teacher")
+            var countFilter = res.data.filter(x => x.count_name === "teacher")
             setTeacherCount(countFilter[0].count_num)
         });
-        const fetchSchoolData = async ()=> {
-            try {
-                const res = await axios.get("/api/getschool")
-                setSchoolList(res.data)
-                setSchoolDone(true)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchSchoolData();
-        const fetchTeacherData = async ()=> {
-            try {
-                const res = await axios.get("/api/getteacher")
-                setTeacherList(res.data)
-                setTeacherDone(true)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchTeacherData()
+        getTeachers.then(res => {
+            setTeacherList(res)
+            setTeacherDone(true)
+        })
+        getSchools.then(res => {
+            setSchoolList(res)
+            setSchoolDone(true)
+        })
+
     },[])
     let nameHandler = (e) => {
         e.preventDefault();
@@ -59,6 +50,7 @@ function PostTeacher(){
             teach_school : Number(teachSchool),
             teach_history : teachHistory
         }
+        console.log(Number(teachSchool))
         if( !body.teach_name && !body.teach_school ){
             alert("이름과 소속 학교는 필수 항목입니다.")
             return;
@@ -66,7 +58,7 @@ function PostTeacher(){
             if(!body.teach_name){
                 alert("강사의 이름을 입력해주세요.")
                 return;
-            } else if(!body.teach_school){
+            } else if(isNaN(body.teach_school)){
                 alert("강사의 소속 학교를 선택해주세요.")
                 return;
             } else{
@@ -83,10 +75,6 @@ function PostTeacher(){
                     <div className="post--form-label">이름</div>
                     <Form.Control type="text" placeholder="강사의 이름을 입력하세요." name="teach_name" value={teachName} onChange={nameHandler} />
                 </Form.Group>
-                {/* <Form.Group className="mb-3">
-                    <Form.Label>teacher school</Form.Label>
-                    <Form.Control type="number" placeholder="강사의 학교를 입력하세요" name="teach_school" value={teachSchool} onChange={schoolHandler} />
-                </Form.Group> */}
                 <Form.Group className="mb-3">
                 <div className="post--form-label">연혁</div>
                     <Form.Control type="text" placeholder="강사의 연혁을 입력하세요" name="teach_history" value={teachHistory} onChange={historyHandler} />
