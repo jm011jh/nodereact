@@ -20,28 +20,23 @@ export default function PostItem(){
     let [ schoolList, setSchoolList ] = useState([])
     let [ itemList, setItemList ] = useState([])
     let [ typeList, setTypeList ] = useState([])
+
+    let [ itemDone, setItemDone ] = useState(false)
+    let [ typeDone, setTypeDone ] = useState(false)
+    let [ teacherDone, setTeacherDone ] = useState(false)
+    let [ subjectDone, setSubjectDone ] = useState(false)
     useEffect(()=>{
         axios.get("/api/getcount")
         .then((res) => {
             var countFilter = res.data.filter(x => x.count_name === "item")
             setItemCount(countFilter[0].count_num)
         });
-    },[])
-    useEffect(()=>{
         getSchools.then((res) => { setSchoolList(res) })
-    },[getSchools])
-    useEffect(()=>{
-        getSubjects.then((res) => { setSubjectList(res) })
-    },[getSubjects])
-    useEffect(()=>{
-        getTeachers.then((res) => { setTeacherList(res) })
-    },[getTeachers])
-    useEffect(()=>{
-        getItems.then((res) => { setItemList(res) })
-    },[getItems])
-    useEffect(()=>{
-        getType.then((res) => { setTypeList(res) })
-    },[getType])
+        getSubjects.then((res) => { setSubjectList(res); setSubjectDone(true); console.log(res)})
+        getTeachers.then((res) => { setTeacherList(res); setTeacherDone(true); console.log(res)})
+        getItems.then((res) => { setItemList(res);setItemDone(true);console.log(res)})
+        getType.then((res) => { setTypeList(res);setTypeDone(true);console.log(res)})
+    },[])
     let typeHandler = (e) => {
         e.preventDefault()
         setItemType(e.target.value)
@@ -53,6 +48,7 @@ export default function PostItem(){
     let subjectHandler = (e) => {
         e.preventDefault()
         setItemSubject(e.target.value)
+        console.log(e.target.value)
     }
     let DateHandler = (e) => {
         e.preventDefault()
@@ -65,6 +61,7 @@ export default function PostItem(){
     let teacherIdHandler = (e) => {
         e.preventDefault()
         setItemTeacherId(e.target.value)
+        console.log(e.target.value)
     }
     let saveHandler = (e) => {
         let body = {
@@ -152,7 +149,11 @@ export default function PostItem(){
                     <div className="post--dataItem-text02">담당 강사</div>
                 </div>
                 <div className="post--dataCnt">
-                    <PostDataCnt typeList={typeList}></PostDataCnt>
+                    {
+                        itemDone && typeDone && teacherDone && subjectDone
+                        ?<PostDataCnt itemList={itemList} typeList={typeList} teacherList={teacherList} subjectList={subjectList}></PostDataCnt>
+                        : <div>자료를 불러오는 중입니다.</div>
+                    }
                 </div>
             </div>
         </div>
@@ -160,9 +161,11 @@ export default function PostItem(){
 }
 
 function PostDataCnt(props){
-    const { getTeachers, getSubjects, getItems, getType, getSchools } = useStore(state => state)
 
     let [ opendFixNumber, setOpendFixNumber ] = useState(null)
+    const typeList = props.typeList
+    const subjectList = props.subjectList
+    const teacherList = props.teacherList
     const fixThisItem = (event, i) => {
         const thisBtn = event.currentTarget
         setOpendFixNumber(null)
@@ -176,53 +179,41 @@ function PostDataCnt(props){
             setOpendFixNumber(i)
         }
     }
-
-    let [ subjectList, setSubjectList ] = useState([])
-    let [ teacherList, setTeacherList ] = useState([])
-    let [ schoolList, setSchoolList ] = useState([])
-    let [ itemList, setItemList ] = useState([])
-    let [ typeList, setTypeList ] = useState([])
-
-    getSchools.then((res) => { setSchoolList(res) })
-    getSubjects.then((res) => { setSubjectList(res) })
-    getTeachers.then((res) => { setTeacherList(res) })
-    getType.then((res) => { setTypeList(res) })
-    getItems.then((res) => { setItemList(res) })
-    function test(){
-    }
-    console.log(typeList[0])
     return(
-        <>
-        <button onClick={()=>test()}>click</button>
-        {itemList.map(function(data, i){
-                    return(
-                        <div key={i} className="post--dataItem">
-                        <div className="post--dataItem-contents">
-                            <div className="post--dataItem-text">
-                                {/* <div className="post--dataItem-text01">{typeList[0].title}</div> */}
+        props.itemList.map(function(data, i){
+            return(
+                <div key={i} className="post--dataItem">
+                <div className="post--dataItem-contents">
+                    <div className="post--dataItem-text">
+                                <div className="post--dataItem-text01">{
+                                typeList.filter(x => x.index == data.item_type)[0].title
+                                }</div>
                                 <span className="post--dataItem-line"></span>
                                 <div className="post--dataItem-text01">{data.item_title}</div>
                                 <span className="post--dataItem-line"></span>
-                                {/* <div className="post--dataItem-text01">{subjectList[0].subject_name}</div> */}
+                                <div className="post--dataItem-text01">{
+                                subjectList.filter(x => x.subject_index == data.item_subject)[0].subject_name
+                            }</div>
                                 <span className="post--dataItem-line"></span>
                                 <div className="post--dataItem-text01">{data.item_date}</div>
                                 <span className="post--dataItem-line"></span>
                                 <div className="post--dataItem-text01">{data.item_time}</div>
                                 <span className="post--dataItem-line"></span>
-                                <div className="post--dataItem-text01">{data.item_teacher_id}</div>
-                            </div>
-                            <div className="post--dataItem-fix-btn" onClick={(e)=>fixThisItem(e,i)}>
+                                <div className="post--dataItem-text01">{
+                                    teacherList.filter(x => x.teach_id == data.item_teacher_id)[0].teach_name
+                                }</div>
+                    </div>
+                    <div className="post--dataItem-fix-btn" onClick={(e)=>fixThisItem(e,i)}>
                                 <span className="material-symbols-outlined">edit</span>
                                 <span className="material-symbols-outlined">close</span>
-                            </div>
-                        </div>
-                        {
-                            opendFixNumber === i ? <PostDataCntFixForm data={data} opendFixNumber={opendFixNumber} /> : null
-                        }
                     </div>
-                    )
-        })}
-        </>
+                </div>
+                {
+                    opendFixNumber === i ? <PostDataCntFixForm data={data} opendFixNumber={opendFixNumber} /> : null
+                }
+            </div>
+            )
+        })
     )
 }
 function PostDataCntFixForm(props){
