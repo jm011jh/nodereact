@@ -1,5 +1,8 @@
-.adm--h1{font-size: 24px;font-weight: 500;text-align: center;padding: 60px 0;border: solid rgb(55,55,88);border-width: 1px 0;}
 
-.adm--menubar{display: flex;border-bottom: 1px solid rgb(55,55,88);margin-top: 48px;}
-.adm--menuItem{padding: 4px 18px;cursor: pointer;font-weight: 500;}
+.adm--h1{font-size: 24px;font-weight: 500;text-align: center;padding: 40px 0;}
+
+.adm--menuBar{width: 100%;border-bottom: 1px solid rgb(55,55,88);}
+.adm--menuBar-wrap{display: flex;margin:48px auto 0;width: 100%;max-width: 480px;}
+.adm--menuItem{padding: 4px 24px;cursor: pointer;font-weight: 500;}
 .adm--menuItem.on{background-color: rgb(55, 55, 88);color: #fff;}
+.adm--menuItem-empty{font-size: 20px;text-align: center;margin-top: 40px;}

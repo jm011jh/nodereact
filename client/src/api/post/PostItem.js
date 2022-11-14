@@ -185,21 +185,21 @@ function PostDataCnt(props){
                 <div key={i} className="post--dataItem">
                 <div className="post--dataItem-contents">
                     <div className="post--dataItem-text">
-                                <div className="post--dataItem-text01">{
+                                <div className="post--dataItem-text02">{
                                 typeList.filter(x => x.index == data.item_type)[0].title
                                 }</div>
                                 <span className="post--dataItem-line"></span>
-                                <div className="post--dataItem-text01">{data.item_title}</div>
+                                <div className="post--dataItem-text02">{data.item_title}</div>
                                 <span className="post--dataItem-line"></span>
-                                <div className="post--dataItem-text01">{
+                                <div className="post--dataItem-text02">{
                                 subjectList.filter(x => x.subject_index == data.item_subject)[0].subject_name
                             }</div>
                                 <span className="post--dataItem-line"></span>
-                                <div className="post--dataItem-text01">{data.item_date}</div>
+                                <div className="post--dataItem-text02">{data.item_date}</div>
                                 <span className="post--dataItem-line"></span>
-                                <div className="post--dataItem-text01">{data.item_time}</div>
+                                <div className="post--dataItem-text02">{data.item_time}</div>
                                 <span className="post--dataItem-line"></span>
-                                <div className="post--dataItem-text01">{
+                                <div className="post--dataItem-text02">{
                                     teacherList.filter(x => x.teach_id == data.item_teacher_id)[0].teach_name
                                 }</div>
                     </div>

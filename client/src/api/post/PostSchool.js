@@ -50,7 +50,7 @@ export default function PostSchool(){
             <div className="post--dataList">
                 <div className="post--dataTitle">등록된 학교 목록</div>
                 <div className="post--dataHead">
-                    <div className="post--dataItem-text01">학교이름</div>
+                    <div className="post--dataItem-text02">학교이름</div>
                     <span className="post--dataItem-line"></span>
                     <div className="post--dataItem-text02">학교번호</div>
                 </div>
@@ -93,9 +93,9 @@ function PostDataCnt(props){
                 <div key={i} className="post--dataItem">
                     <div className="post--dataItem-contents">
                         <div className="post--dataItem-text">
-                            <div className="post--dataItem-text01">{data.school_name}</div>
+                            <div className="post--dataItem-text02">{data.school_name}</div>
                             <span className="post--dataItem-line"></span>
-                            <div className="post--dataItem-text01">{data.school_id}</div>
+                            <div className="post--dataItem-text02">{data.school_id}</div>
                         </div>
                         <div className="post--dataItem-fix-btn" onClick={(e)=>fixThisItem(e,i)}>
                             <span className="material-symbols-outlined">edit</span>

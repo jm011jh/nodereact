@@ -94,11 +94,11 @@ export default function PostTeacher(){
             <div className="post--dataList">
                 <div className="post--dataTitle">등록된 선생님 목록</div>
                 <div className="post--dataHead">
-                    <div className="post--dataItem-text01">선생님 이름</div>
+                    <div className="post--dataItem-text02">선생님 이름</div>
                     <span className="post--dataItem-line"></span>
                     <div className="post--dataItem-text02">선생님 소속</div>
                     <span className="post--dataItem-line"></span>
-                    <div className="post--dataItem-text03">선생님 이력</div>
+                    <div className="post--dataItem-text02">선생님 이력</div>
                 </div>
                 <div className="post--dataCnt">
                     {
@@ -128,14 +128,12 @@ function PostDataCnt(props){
                 <div key={i} className="post--dataItem">
                     <div className="post--dataItem-contents">
                         <div className="post--dataItem-text">
-                            <div className="post--dataItem-text01">{data.teach_name}</div>
+                            <div className="post--dataItem-text02">{data.teach_name}</div>
                             <span className="post--dataItem-line"></span>
                             <div className="post--dataItem-text02">{schoolList[data.teach_school].school_name}</div>
                             <span className="post--dataItem-line"></span>
-                            <div className="post--dataItem-text03">{data.teach_history}</div>
+                            <div className="post--dataItem-text02">{data.teach_history}</div>
                             <span className="post--dataItem-line"></span>
-                            <div className="post--dataItem-text03">{data.teach_id}</div>
-                            
                         </div>
                         <div className="post--dataItem-fix-btn" onClick={fixThisItem}>
                             <span className="material-symbols-outlined">edit</span>
