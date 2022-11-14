@@ -2,8 +2,11 @@ import axios from "axios"
 import { Form } from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState, useEffect } from "react"
+import useStore from '../../store/index'
 
 export default function PostSchool(){
+    const { getSchools } = useStore(state => state)
+
     let [ schoolName, setSchoolName ] = useState("")
     let [ schoolCount, setSchoolCount ] = useState("")
     let [ schoolDone, setSchoolDone ] = useState(false)
@@ -15,10 +18,8 @@ export default function PostSchool(){
             var countFilter = res.data.filter(x => x.count_name === "school")
             setSchoolCount(countFilter[0].count_num)
         })
-        axios.get("/api/getschool")
-        .then((res) => {
-            console.log(res.data)
-            setSchoolList(res.data)
+        getSchools.then(res => {
+            setSchoolList(res)
             setSchoolDone(true)
         })
     },[])

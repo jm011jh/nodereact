@@ -5,7 +5,7 @@ import './api_post.css'
 import { useState, useEffect } from "react"
 import useStore from '../../store/index'
 
-function PostTeacher(){
+export default function PostTeacher(){
     const { getTeachers, getSchools } = useStore(state => state)
     let [ teachName, setTeachName ] = useState("")
     let [ teachSchool, setTeachSchool ] = useState("")
@@ -144,5 +144,3 @@ function PostDataCnt(props){
         })
     )
 }
-
-export default PostTeacher

@@ -23,3 +23,5 @@
 .post--dataItem-fix-btn span:last-child{display: none;}
 
 .post--dataItem-fixInput{border-top: 1px solid #ddd;}
+
+.flex{display: flex;gap: 4px;}

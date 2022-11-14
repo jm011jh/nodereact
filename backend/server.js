@@ -25,10 +25,11 @@ const { Collection } = require("mongodb-legacy");
 const { response } = require("express");
 
 const Teachers = require("./models/teacher")
-const Classes = require("./models/class")
+const Items = require("./models/item")
 const Types = require("./models/type")
 const Count = require("./models/count")
 const Schools = require("./models/school")
+const Subjects = require("./models/subject")
 const connect = require("./models")
 connect()
 
@@ -39,6 +40,12 @@ async function run() {
         //#region api get
         app.get("/api/getcount", (req, res) => {
             Count.find((error, result) => {
+                if(error) console.log(error)
+                res.send(result)
+            })
+        })
+        app.get("/api/getsubject", (req, res) => {
+            Subjects.find((error, result) => {
                 if(error) console.log(error)
                 res.send(result)
             })
@@ -55,8 +62,8 @@ async function run() {
                 res.send(result)
             })
         })
-        app.get("/api/getclass", (req, res) => {
-            Classes.find((error, result) => {
+        app.get("/api/getitem", (req, res) => {
+            Items.find((error, result) => {
                 if(error) console.log(error)
                 res.send(result)
             })
@@ -82,16 +89,16 @@ async function run() {
                 })
             })
         })
-        app.post("/api/itempost", async (req, res) => {
+        app.post("/api/typepost", async (req, res) => {
             var new_type = new Types(req.body)
             new_type.save((err) => {
                 if (err) return res.status(500).json({message: "type save failed"});
                 else return response.status(200).json({message: "type save success", data: new_type})
             })
-            Count.findOne({count_name : "item"},(err, res) => {
+            Count.findOne({count_name : "type"},(err, res) => {
                 if (err) console.log(err)
                 let increaseOne = res.count_num + 1
-                Count.updateOne({count_name : "item"}, {count_num : increaseOne}, (error) => {
+                Count.updateOne({count_name : "type"}, {count_num : increaseOne}, (error) => {
                     if (error) console.log(error)
                 })
             })
@@ -120,6 +127,20 @@ async function run() {
                 if (err) console.log(err)
                 let increaseOne = res.count_num + 1
                 Count.updateOne({count_name : "school"}, {count_num : increaseOne}, (error) => {
+                    if (error) console.log(error)
+                })
+            })
+        })
+        app.post("/api/itempost", async (req, res) => {
+            var new_items = new Items(req.body)
+            new_items.save((err) => {
+                if (err) return res.status(500).json({message: "item save failed"});
+                else return res.status(200).json({message: "item save success", data: new_items})
+            })
+            Count.findOne({count_name : "item"},(err, res) => {
+                if (err) console.log(err)
+                let increaseOne = res.count_num + 1
+                Count.updateOne({count_name : "item"}, {count_num : increaseOne}, (error) => {
                     if (error) console.log(error)
                 })
             })
