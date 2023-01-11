@@ -12,7 +12,7 @@ export default function AdmTeacher(){
         axios.get("/api/getcount")
         .then((res) => {
             var countFilter = res.data.filter(x => x.count_name === "teacher")
-            setTeacherCount(countFilter[0].count_num)
+            
         });
         getTeachers.then(res => {
             setTeacherList(res)
