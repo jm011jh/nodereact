@@ -21,5 +21,7 @@ const useStore = create((set) => ({
     getType : axios.get("/api/gettype").then(res => {
         return res.data
     }),
+    admSidBarMenuItem : null,
+    setAdmSidBarMenuItem : admSidBarMenuItem => set({admSidBarMenuItem})
 }));
 export default useStore;

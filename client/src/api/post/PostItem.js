@@ -32,10 +32,10 @@ export default function PostItem(){
             setItemCount(countFilter[0].count_num)
         });
         getSchools.then((res) => { setSchoolList(res) })
-        getSubjects.then((res) => { setSubjectList(res); setSubjectDone(true); console.log(res)})
-        getTeachers.then((res) => { setTeacherList(res); setTeacherDone(true); console.log(res)})
-        getItems.then((res) => { setItemList(res);setItemDone(true);console.log(res)})
-        getType.then((res) => { setTypeList(res);setTypeDone(true);console.log(res)})
+        getSubjects.then((res) => { setSubjectList(res); setSubjectDone(true);})
+        getTeachers.then((res) => { setTeacherList(res); setTeacherDone(true);})
+        getItems.then((res) => { setItemList(res);setItemDone(true);})
+        getType.then((res) => { setTypeList(res);setTypeDone(true);})
     },[])
     let typeHandler = (e) => {
         e.preventDefault()

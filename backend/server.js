@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors());
 
 
-const port = 5000;
+const port = 8080;
 const saltRounds = 10;
 const { Collection } = require("mongodb-legacy");
 const { response } = require("express");
